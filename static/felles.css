@@ -1,0 +1,24 @@
+.knapper {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    
+}
+
+.boxinni {
+    width: 200px;
+    height: auto;
+    background-color: #b58383;
+    border: solid rgb(120, 98, 98) 5px;
+
+    /* Add transition effect */
+    transition: transform 0.3s ease;
+}

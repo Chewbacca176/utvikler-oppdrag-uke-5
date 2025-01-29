@@ -1,0 +1,84 @@
+{% extends "navbar.html" %}
+{% block body %}
+    
+    <div class="class">
+        <h1>Hello World!</h1>
+        <p>This is a paragraph.</p>
+        <ul>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ul>
+        <a href="https://example.com">Link to Example</a>
+        <img src="example.jpg" alt="Example Image">
+        <div class="nested-div">Nested Div</div>
+        <button class="button">Click Me</button>
+        <input type="text" placeholder="Enter text">
+        <select>
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+        </select>
+        <form>
+            <input type="text" placeholder="Enter text">
+            <input type="submit" value="Submit">
+        </form>
+        <input type="text" placeholder="tanta di">
+    </div>
+    
+    <script>
+        
+        
+        const classToggle = document.querySelector('.class');
+        classToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+        });
+        
+        
+        const h1 = document.querySelector('h1');
+        h1.addEventListener('click', function() {
+            this.style.color = 'blue';
+        });
+        
+       
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Shift') {
+                document.body.style.backgroundColor = 'lightgray';
+            }
+        });
+        
+       
+        const button = document.querySelector('.button');
+        button.addEventListener('click', function() {
+            this.style.color ='red';
+        });
+
+                const input = document.querySelector('input[type="text"]');
+        input.addEventListener('input', function() {
+            console.log(this.value);
+        });
+        
+        
+        const select = document.querySelector('select');
+        select.addEventListener('change', function() {
+            console.log(this.value);
+        });
+        
+        
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            console.log(this.elements['input[type="text"]'].value);
+        });
+
+        const nestedDiv = document.querySelector('.nested-div');
+        nestedDiv.addEventListener('dblclick', function() {
+            this.style.backgroundColor = 'yellow';
+        });
+
+
+        
+    </script>
+
+
+{% endblock %}

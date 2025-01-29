@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='felles.css')}}">
+</head>
+<body>
+    <div class="navbar">
+        <a href="/" id="main">main</a>
+        <a href="/registrer" id="registrer">registrer</a>
+        <a href="/logginn" id="logginn">logginn</a>
+        <a href="/bestillinger" id="bestillinger">bestillinger</a>
+        <a href="/sebestillinger" id="sebestillinger">sebestillinger</a>
+    </div>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            
+        }
+        form {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+            padding: 14px 16px;
+            font-size: 17px;
+        }
+        .navbar {
+            background-color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: groove black 5px;
+            text-align: center;
+            
+        }
+       #main {
+            color: black;
+            border: black groove 5px;
+            padding: 25px;
+            width: 100%;
+            
+       }
+       #logginn {
+            color: black;
+            border: groove black 5px;
+            padding: 25px;
+            width: 100%;
+        }
+        #bestillinger {
+            color: black;
+            border: groove black 5px;
+            padding: 25px;
+            width: 100%;
+        }
+        #sebestillinger {
+            color: black;
+            border: groove black 5px;
+            padding: 25px;
+            width: 100%;
+        }
+        #registrer {
+            color: black;
+            border: groove black 5px;
+            padding: 25px;
+            width: 100%;
+        }
+    </style>
+    {% block body %}
+    {% endblock %}
+</body>

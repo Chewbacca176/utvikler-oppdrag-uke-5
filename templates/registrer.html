@@ -1,0 +1,49 @@
+{% extends "navbar.html" %}
+{% block body %}
+<br><br><br><br><br><br>
+<div class="box">
+    <form class="boxinni" method="post">
+        <label for="navn">Navn:</label>
+        <input type="text" id="navn" name="navn", required><br><br>
+
+        <label for="etternavn">Etternavn:</label>
+        <input type="text" id="etternavn" name="etternavn", required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email", required><br><br>
+
+        <label for="passord">Passord:</label>
+        <input type="password" id="passord" name="passord", required><br><br>
+
+        <div class="knapper">
+            <input onclick="tilbakemelding_knapp()" type="submit" value="registrer">
+            <input onclick="nullstill()" type="reset" value="nullstill">
+        </div>
+
+    </form>
+    <div class="tilbakemelding" onload="tilbakemelding_knapp()">
+        {{ tilbakemelding_registrering }}
+    </div>
+</div>
+<ul>
+    {% for i in tall_liste %}
+    <li>{{ i }}</li>
+    {% endfor %}
+</ul>
+
+<style>
+   
+</style>
+
+
+<script>
+    function tilbakemelding_knapp() {
+        console.log("called tilbakemelding_knapp")
+        document.querySelector('.tilbakemelding').style.visibility = 'visible'; 
+    } 
+    
+    function nullstill() {
+        document.querySelector('.tilbakemelding').style.visibility = 'hidden'; 
+    }
+</script>
+{% endblock %}

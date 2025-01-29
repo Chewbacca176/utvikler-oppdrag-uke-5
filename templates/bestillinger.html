@@ -1,0 +1,45 @@
+{% extends "navbar.html" %}
+{% block body %}
+<br><br><br><br><br><br>
+<div class="box">
+    <form class="boxinni" method="post">
+        <label for="Boknavn">Boknavn:</label>
+        <input type="text" id="Boknavn" name="Boknavn", required><br><br>
+
+        <label for="Sider">Sider:</label>
+        <input type="text" id="Sider" name="Sider", required><br><br>
+
+        <label for="Ord">Ord:</label>
+        <input type="text" id="Ord" name="Ord", required><br><br>
+
+        <label for="Språk -> Språk">Språk -> Språk:</label>
+        <input type="text" id="Språk -> Språk" name="Beskrivelse", required><br><br>
+
+        <div class="knapper">
+            <input onclick="tilbakemelding_knapp()" type="submit" value="bestilling">
+            <input onclick="nullstill()" type="reset" value="nullstill">
+        </div>
+
+    </form>
+    <div class="tilbakemelding" >
+        {{ bok_bestilling }}
+    </div>
+</div>
+
+
+<style>
+   
+</style>
+
+
+<script>
+    function tilbakemelding_knapp() {
+        console.log("called tilbakemelding_knapp")
+        document.querySelector('.tilbakemelding').style.visibility = 'visible'; 
+    } 
+    
+    function nullstill() {
+        document.querySelector('.tilbakemelding').style.visibility = 'hidden'; 
+    }
+</script>
+{% endblock %}
