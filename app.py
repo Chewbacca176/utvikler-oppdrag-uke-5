@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request 
+from flask import Flask, render_template, request, session 
 import random
 from database import logg_inn, opprett_bruker, bokbestillinger, sebokbestillinger
 
 app = Flask(__name__)
 
+app.secret_key = "idkmaaaan"
 
 bruker = None
 @app.route('/')
@@ -20,13 +21,26 @@ def bestillinger():
 
 @app.route('/sebestillinger')
 def sebestillinger():
-    try:
-        bokbestillingliste = sebokbestillinger()
-        lengde = len(bokbestillingliste["boknavn"][0])
-        print(lengde)
-        return render_template("sebestillinger.html", bokbestillingliste=bokbestillingliste, lengde=lengde)
-    except TypeError:
-        return "Logg inn for å se bestillinger"
+    if session.get('email'):
+        try:
+            bokbestillingliste = sebokbestillinger()
+            lengde = len(bokbestillingliste["boknavn"][0])
+            print(lengde)
+
+            farger = []
+            for i in range(lengde):
+                farge = [(random.randint(0,255), random.randint(0,255), random.randint(0,255)), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), (random.randint(0,255), random.randint(0,255), random.randint(0,255))]
+                farger.append(farge)
+            print(farger)
+            print(farger[0])
+            print(farger[0][0])
+
+            return render_template("sebestillinger.html", bokbestillingliste=bokbestillingliste, lengde=lengde, farger=farger)
+        except TypeError:
+            return "Logg inn for å se bestillinger"
+    else:
+        tilbakemelding = "Logg inn for å se bestillinger" 
+        return render_template("logginn.html", tilbakemelding_registrering=tilbakemelding)
 
 @app.route('/registrer')
 def registrer():
@@ -60,6 +74,7 @@ def hent_logginn():
         if bruker == "Feil email eller passord.":
             return render_template("logginn.html", tilbakemelding_registrering=tilbakemelding_registrering)
         else:
+            session["email"] = email
             tilbakemelding_registrering = "Innlogging vellyket"
             return render_template("logginn.html", tilbakemelding_registrering=tilbakemelding_registrering)
         

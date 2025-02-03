@@ -5,18 +5,47 @@
 <div class="bestillinger_box">
     {% for antall in range(lengde) %}
         <div class="bestillinger_boxbox">
-            <h1 class="bestillinger_title">
-                {{ bokbestillingliste["boknavn"][0][antall][0] }}
-            </h1>
-            <p> {{ bokbestillingliste["sider"][0][antall][0] }} </p>
-            <p> {{ bokbestillingliste["ord"][0][antall][0] }} </p>
-            <p> {{ bokbestillingliste["beskrivelse"][0][antall][0] }} </p>
+            <div class="bok-tekst">
+                <h1 class="bestillinger_title">
+                    {{ bokbestillingliste["boknavn"][0][antall][0] }}
+                </h1>
+                <p> {{ bokbestillingliste["sider"][0][antall][0] }} </p>
+                <p> {{ bokbestillingliste["ord"][0][antall][0] }} </p>
+                <p> {{ bokbestillingliste["beskrivelse"][0][antall][0] }} </p>
+            </div>
+            <img class="bok-slett" src="../static/bilder/x-icon-test-removebg-preview.png" width="10%" height="20%"/>
         </div>
+        <style >
+            @keyframes keyframe{
+                0% {background-color: rgb{{  farger[antall][0]  }} ;}
+                33% {background-color: rgb{{  farger[antall][1]  }};}
+                66% {background-color: rgb{{  farger[antall][2]  }};}
+                100% {background-color: rgb{{  farger[antall][0]  }} ;}
+            }
+
+            .bestillinger_boxbox {
+                width: 30%;
+                border-radius: 5px;
+                margin: 13px;
+                padding: 10px;
+                border: 2px solid black;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+                display: flex;
+                justify-content: space-between;
+                /* animation-name: keyframe; */
+                animation-duration: 5s;
+                animation-iteration-count: infinite;
+            }
+        </style>
     {% endfor %}  
     <div style="width: 30%; border-radius: 5px;margin: 13px;padding: 10px; border: 2px ;"></div>
 </div>
 
 <style>
+   
+        
+      
+
     .bestillinger_box {
         display: flex;
         flex-direction: row;
@@ -24,13 +53,20 @@
         flex-wrap: wrap;
 
     }
-    .bestillinger_boxbox {
-        width: 30%;
-        border-radius: 5px;
-        margin: 13px;
-        padding: 10px;
-        border: 2px solid black;
+    
+
+    .bok-tekst {
+        width: 10%;
+        height: auto;
+        width: 90%;
+    }
+    .bok-slett {
+        border-radius: 100%;
+        background-color: black;
         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .bok-slett:hover {
+        background-color: darkred;
     }
 
 </style>
