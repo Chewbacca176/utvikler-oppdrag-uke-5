@@ -19,7 +19,11 @@
             <input onclick="tilbakemelding_knapp()" type="submit" value="registrer">
             <input onclick="nullstill()" type="reset" value="nullstill">
         </div>
-
+        <div class="admin">
+            <p>Admin?</p>
+            <input type="checkbox" name="role" value="admin" id="admin">
+        </div>
+        <input class="admin_passord hide" type="password" placeholder="passord" name="admin_passord">
     </form>
     <div class="tilbakemelding" onload="tilbakemelding_knapp()">
         {{ tilbakemelding_registrering }}
@@ -32,18 +36,22 @@
 </ul>
 
 <style>
-   
+   .admin {
+        display: flex;
+        flex-direction: row;
+        
+   }
+    
+    .hide {
+        visibility: hidden;
+    }
 </style>
 
-
 <script>
-    function tilbakemelding_knapp() {
-        console.log("called tilbakemelding_knapp")
-        document.querySelector('.tilbakemelding').style.visibility = 'visible'; 
-    } 
-    
-    function nullstill() {
-        document.querySelector('.tilbakemelding').style.visibility = 'hidden'; 
-    }
+    function test2() {
+    console.log("called test2");
+}
 </script>
+
+
 {% endblock %}

@@ -4,6 +4,7 @@ CREATE TABLE brukere (
     etternavn VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     passord VARCHAR(255) NOT NULL, 
+    role text NOT NULL default 'user',
     opprettet_tidspunkt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

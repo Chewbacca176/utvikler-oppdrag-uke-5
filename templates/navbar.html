@@ -10,10 +10,17 @@
     <div class="navbar">
         <a href="/" id="main">main</a>
         <a href="/registrer" id="registrer">registrer</a>
-        <a href="/logginn" id="logginn">logginn</a>
+        {% if logg_inn %}
+            <a href="/loggut" id="loggut">loggut</a>
+        {% else %}
+            <a href="/logginn" id="logginn">logginn</a>
+        {% endif %}
         <a href="/bestillinger" id="bestillinger">bestillinger</a>
         <a href="/sebestillinger" id="sebestillinger">sebestillinger</a>
     </div>
+    {% if username %}
+        <p>Du er logget inn som: {{username}}, med rollen: {{role}}.</p>
+    {% endif %}
     <style>
         body {
             margin: 0;
@@ -47,6 +54,12 @@
             width: 100%;
             
        }
+       #loggut {
+            color: black;
+            border: groove black 5px;
+            padding: 25px;
+            width: 100%;
+        }
        #logginn {
             color: black;
             border: groove black 5px;
@@ -74,6 +87,5 @@
     </style>
     {% block body %}
     {% endblock %}
+    <script src="{{url_for('static', filename='js/script.js')}}"></script>
 </body>
-
-<script src="{{url_for('static', filename='script.js')}}"></script>
