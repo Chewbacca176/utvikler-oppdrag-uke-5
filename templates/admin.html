@@ -1,5 +1,8 @@
 {% extends "navbar.html" %}
 {% block body %}
-
-admin side
+{% for i in range(brukere)%}
+    <ul>
+        <li><p>navn: {{bruker_info[i][1]}} | etternavn: {{bruker_info[i][2]}} | email: {{bruker_info[i][3]}} | role: {{bruker_info[i][5]}}</p></li>
+    </ul>
+{% endfor %}
 {% endblock %}

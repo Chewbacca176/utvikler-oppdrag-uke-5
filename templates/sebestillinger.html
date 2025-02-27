@@ -3,40 +3,22 @@
 
 
 <div class="bestillinger_box">
-    {% for antall in range(lengde) %}
+    {% for antall in range(bok_id) %}
         <div class="bestillinger_boxbox">
             <div class="bok-tekst">
                 <h1 class="bestillinger_title">
-                    {{ bokbestillingliste["boknavn"][0][antall][0] }}
+                    {{ bestilling_liste["boknavn"][0][antall][0] }}
                 </h1>
-                <p> {{ bokbestillingliste["sider"][0][antall][0] }} </p>
-                <p> {{ bokbestillingliste["ord"][0][antall][0] }} </p>
-                <p> {{ bokbestillingliste["beskrivelse"][0][antall][0] }} </p>
+                <p> {{ bestilling_liste["sider"][0][antall][0] }} </p>
+                <p> {{ bestilling_liste["ord"][0][antall][0] }} </p>
+                <p> {{ bestilling_liste["beskrivelse"][0][antall][0] }} </p>
             </div>
-            <img class="bok-slett" src="../static/bilder/x-icon-test-removebg-preview.png" width="10%" height="20%"/>
+            <form>
+                <img name="bok" value={{bok_id[antall]}} class="bok-slett" type="Submit" src="../static/bilder/x-icon-test-removebg-preview.png" width="100%" height="20%"/>
+                 
+            </form> 
         </div>
-        <style >
-            @keyframes keyframe{
-                0% {background-color: rgb{{  farger[antall][0]  }} ;}
-                33% {background-color: rgb{{  farger[antall][1]  }};}
-                66% {background-color: rgb{{  farger[antall][2]  }};}
-                100% {background-color: rgb{{  farger[antall][0]  }} ;}
-            }
-
-            .bestillinger_boxbox {
-                width: 30%;
-                border-radius: 5px;
-                margin: 13px;
-                padding: 10px;
-                border: 2px solid black;
-                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-                display: flex;
-                justify-content: space-between;
-                /* animation-name: keyframe; */
-                animation-duration: 5s;
-                animation-iteration-count: infinite;
-            }
-        </style>
+       
     {% endfor %}  
     <div style="width: 30%; border-radius: 5px;margin: 13px;padding: 10px; border: 2px ;"></div>
 </div>
@@ -44,7 +26,19 @@
 <style>
    
         
-      
+   .bestillinger_boxbox {
+        width: 30%;
+        border-radius: 5px;
+        margin: 13px;
+        padding: 10px;
+        border: 2px solid black;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        display: flex;
+        justify-content: space-between;
+        /* animation-name: keyframe; */
+        animation-duration: 5s;
+        animation-iteration-count: infinite;
+    }
 
     .bestillinger_box {
         display: flex;
@@ -56,7 +50,7 @@
     
 
     .bok-tekst {
-        width: 10%;
+        
         height: auto;
         width: 90%;
     }

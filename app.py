@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, session, redirect
 import random
-from database import logg_inn, opprett_bruker, bokbestillinger, sebokbestillinger
+from database import logg_inn, opprett_bruker, bokbestillinger, sebokbestillinger, delete_bestillinger, admin_info
 
 app = Flask(__name__)
 
@@ -10,8 +10,7 @@ bruker = None
 
 @app.context_processor
 def current_user():
-    print(session.get("username"))
-    print(session.get("role"))
+    
     return dict(username=session.get('username'), role=session.get('role'), logg_inn=session.get('logginn'))
 @app.route('/')
 def home():
@@ -24,7 +23,10 @@ def error(error_code):
 @app.route('/admin')
 def admin():
     if session.get('role') == 'admin':
-        return render_template("admin.html")
+        bruker_info = admin_info()
+        brukere = len(bruker_info)
+
+        return render_template("admin.html", bruker_info=bruker_info, brukere=brukere)
     else:
         return render_template("index.html"), 401
     
@@ -42,27 +44,36 @@ def loggut():
     global bruker 
     session.clear()
     bruker = None
-    return render_template("logginn.html")
+    
+    return redirect('/logginn')
 
 @app.route('/sebestillinger')
 def sebestillinger():
     if session.get('email'):
         try:
             bokbestillingliste = sebokbestillinger()
-            lengde = len(bokbestillingliste["boknavn"][0])
-            print(lengde)
+            bok_id = len(bokbestillingliste["boknavn"][0])
+            # lengde = len(bokbestillingliste["boknavn"][0])
+            # print(lengde)
+            print(bok_id) 
+            # farger = []
+            # for i in range(lengde):
+            #     farge = [(random.randint(0,255), random.randint(0,255), random.randint(0,255)), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), (random.randint(0,255), random.randint(0,255), random.randint(0,255))]
+            #     farger.append(farge)
 
-            farger = []
-            for i in range(lengde):
-                farge = [(random.randint(0,255), random.randint(0,255), random.randint(0,255)), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), (random.randint(0,255), random.randint(0,255), random.randint(0,255))]
-                farger.append(farge)
-
-            return render_template("sebestillinger.html", bokbestillingliste=bokbestillingliste, lengde=lengde, farger=farger)
+            return render_template("sebestillinger.html", bestilling_liste=bokbestillingliste, bok_id=bok_id)
         except TypeError:
             return "Logg inn for å se bestillinger"
     else:
         tilbakemelding = "Logg inn for å se bestillinger" 
         return render_template("logginn.html", tilbakemelding_registrering=tilbakemelding)
+    
+
+@app.route('/sebestillinger', methods=['GET', 'POST'])
+def slett_bestillinger():
+    if request.method == "POST":
+        bok_id = request.form.get("bok")
+        delete_bestillinger(bok_id)
 
 
 @app.route('/registrer')

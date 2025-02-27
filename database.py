@@ -100,6 +100,7 @@ def bokbestillinger(bruker_id, Boknavn, Sider, Ord, Beskrivelse):
     
 
 def sebokbestillinger():
+    bok_id_liste = []
     db = connect_to_db()
     cursor = db.cursor()
     try:
@@ -119,7 +120,13 @@ def sebokbestillinger():
         sql = "SELECT Beskrivelse FROM bokbestillinger WHERE bruker_id = " + str(id_bruker[0]) 
         cursor.execute(sql)
         bestilling["beskrivelse"].append(cursor.fetchall())
+
+        # for i in range(len(bestilling["boknavn"])):
+        #     sql = "SELECT bok_id FROM bokbestillinger WHERE navn = %s"
+        #     cursor.execute(sql, bestilling["boknavn"[i]])
+        #     bok_id_liste.append(cursor.fetchone())
         db.close()
+        
         return bestilling
 
     except NameError:
@@ -127,4 +134,22 @@ def sebokbestillinger():
     except TypeError:
         return "Logg inn for å se bestillinger"
     except IndexError:
+
         return "Ingen bokbestilling registrert."
+    
+def admin_info():
+    db = connect_to_db()
+    cursor = db.cursor()
+    sql = "SELECT * FROM brukere"
+    cursor.execute(sql)
+    bruker_info = cursor.fetchall()
+    db.close()
+    
+    return bruker_info
+    
+def delete_bestillinger(bok_id):
+    db = connect_to_db()
+    cursor = db.cursor()
+    
+    sql = "update bestillinger set is_active = 'no' where bruker_id = %s"
+    cursor.execute(sql, bok_id)

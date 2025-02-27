@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS nettsidespill;
+
+
 CREATE TABLE brukere (
     bruker_id INT AUTO_INCREMENT PRIMARY KEY,
     navn VARCHAR(255) NOT NULL,
@@ -19,3 +22,5 @@ CREATE TABLE bokbestillinger (
     opprettet_tidspunkt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (bruker_id) REFERENCES brukere(bruker_id) ON DELETE CASCADE
 );
+
+
