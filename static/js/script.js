@@ -47,3 +47,4 @@ function test1() {
 }
 
 document.querySelector('#admin').addEventListener("click", function() {admin_passord();})
+document.querySelector('.bok-slett').addEventListener("click", function() {test1();})

@@ -47,33 +47,27 @@ def loggut():
     
     return redirect('/logginn')
 
-@app.route('/sebestillinger')
-def sebestillinger():
-    if session.get('email'):
-        try:
-            bokbestillingliste = sebokbestillinger()
-            bok_id = len(bokbestillingliste["boknavn"][0])
-            # lengde = len(bokbestillingliste["boknavn"][0])
-            # print(lengde)
-            print(bok_id) 
-            # farger = []
-            # for i in range(lengde):
-            #     farge = [(random.randint(0,255), random.randint(0,255), random.randint(0,255)), (random.randint(0,255), random.randint(0,255), random.randint(0,255)), (random.randint(0,255), random.randint(0,255), random.randint(0,255))]
-            #     farger.append(farge)
-
-            return render_template("sebestillinger.html", bestilling_liste=bokbestillingliste, bok_id=bok_id)
-        except TypeError:
-            return "Logg inn for å se bestillinger"
-    else:
-        tilbakemelding = "Logg inn for å se bestillinger" 
-        return render_template("logginn.html", tilbakemelding_registrering=tilbakemelding)
-    
 
 @app.route('/sebestillinger', methods=['GET', 'POST'])
-def slett_bestillinger():
-    if request.method == "POST":
-        bok_id = request.form.get("bok")
-        delete_bestillinger(bok_id)
+def sebestillinger():
+    if request.method == 'GET':
+        if session.get('email'):
+            try:
+                bokbestillingliste = sebokbestillinger()
+                bokbestillingliste1 = bokbestillingliste[0]
+                bokbestillingliste2 = bokbestillingliste[1]
+                bok_id = len(bokbestillingliste1["boknavn"][0])
+                return render_template("sebestillinger.html", bestilling_liste=bokbestillingliste1, bok_id_liste=bokbestillingliste2, bok_id=bok_id)
+            except TypeError:
+                return "Logg inn for å se bestillinger"
+        else:
+            tilbakemelding = "Logg inn for å se bestillinger" 
+            return render_template("logginn.html", tilbakemelding_registrering=tilbakemelding)
+        
+    elif request.method == 'POST':
+        bokid = request.form.get("bok")
+        delete_bestillinger(bokid)
+        return redirect("/sebestillinger")
 
 
 @app.route('/registrer')

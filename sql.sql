@@ -19,6 +19,7 @@ CREATE TABLE bokbestillinger (
     Sider VARCHAR(255) NOT NULL,
     Ord VARCHAR(255) NOT NULL ,
     Beskrivelse VARCHAR(255) NOT NULL, 
+    is_active VARCHAR(255) NOT NULL DEFAULT 'yes',
     opprettet_tidspunkt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (bruker_id) REFERENCES brukere(bruker_id) ON DELETE CASCADE
 );

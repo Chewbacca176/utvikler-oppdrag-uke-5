@@ -34,6 +34,7 @@ def create_database():
             Sider VARCHAR(255) NOT NULL,
             Ord VARCHAR(255) NOT NULL ,
             Beskrivelse VARCHAR(255) NOT NULL, 
+            is_active VARCHAR(255) NOT NULL DEFAULT 'yes',
             opprettet_tidspunkt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (bruker_id) REFERENCES brukere(bruker_id) ON DELETE CASCADE
         );''')
@@ -105,29 +106,30 @@ def sebokbestillinger():
     cursor = db.cursor()
     try:
         bestilling = {"boknavn": [], "sider": [], "ord": [], "beskrivelse": []}
-        sql = "SELECT Boknavn FROM bokbestillinger WHERE bruker_id = " + str(id_bruker[0])
+        sql = "SELECT Boknavn FROM bokbestillinger WHERE bruker_id = " + str(id_bruker[0]) + " AND is_active = 'yes'"
         cursor.execute(sql)
         bestilling["boknavn"].append(cursor.fetchall())
 
-        sql = "SELECT Sider FROM bokbestillinger WHERE bruker_id = " + str(id_bruker[0])
+        sql = "SELECT Sider FROM bokbestillinger WHERE bruker_id = " + str(id_bruker[0]) + " AND is_active = 'yes'"
         cursor.execute(sql)
         bestilling["sider"].append(cursor.fetchall())
 
-        sql = "SELECT Ord FROM bokbestillinger WHERE bruker_id = " + str(id_bruker[0]) 
+        sql = "SELECT Ord FROM bokbestillinger WHERE bruker_id = " + str(id_bruker[0]) + " AND is_active = 'yes'"
         cursor.execute(sql)
         bestilling["ord"].append(cursor.fetchall())
 
-        sql = "SELECT Beskrivelse FROM bokbestillinger WHERE bruker_id = " + str(id_bruker[0]) 
+        sql = "SELECT Beskrivelse FROM bokbestillinger WHERE bruker_id = " + str(id_bruker[0]) + " AND is_active = 'yes'" 
         cursor.execute(sql)
         bestilling["beskrivelse"].append(cursor.fetchall())
 
-        # for i in range(len(bestilling["boknavn"])):
-        #     sql = "SELECT bok_id FROM bokbestillinger WHERE navn = %s"
-        #     cursor.execute(sql, bestilling["boknavn"[i]])
-        #     bok_id_liste.append(cursor.fetchone())
-        db.close()
+    
+        sql = "SELECT bok_id FROM bokbestillinger WHERE bruker_id = " + str(id_bruker[0]) + " AND is_active = 'yes'"
+        cursor.execute(sql)
+        bok_id_liste.append(cursor.fetchall())
         
-        return bestilling
+        db.close()
+        liste = [bestilling, bok_id_liste]
+        return liste
 
     except NameError:
         return "Logg inn for å se bestillinger"
@@ -147,9 +149,11 @@ def admin_info():
     
     return bruker_info
     
-def delete_bestillinger(bok_id):
+def delete_bestillinger(bokid):
+    print(bokid)
     db = connect_to_db()
     cursor = db.cursor()
-    
-    sql = "update bestillinger set is_active = 'no' where bruker_id = %s"
-    cursor.execute(sql, bok_id)
+    sql = "update bokbestillinger set is_active = 'no' where bok_id = " + bokid
+    cursor.execute(sql)
+    db.commit()
+    db.close()
